@@ -1,0 +1,52 @@
+#include<stdio.h>
+
+void create_array(int arr[], int n){
+    int i;
+    for(i = 0; i < n; i++){
+        printf("Enter the elements %d: ", i+1);
+        scanf("%d", &arr[i]);
+    }
+}
+
+void swap_bubble(int arr[], int a, int b){
+    int temp = arr[a];
+    arr[a] = arr[b];
+    arr[b] = temp;
+}
+
+void bubble_sort(int arr[], int n){
+    int i, j, flag;
+    for(i = 0; i < n-1; i++){
+        flag = 0;
+        for(j = 0; j < n-i-1; j++){
+            if(arr[j] > arr[j+1]){
+                swap_bubble(arr, j, j+1);
+                flag = 1;
+            }
+        }
+        if(flag == 0)
+            break;
+    }
+}
+
+void display_array(int arr[], int n) {
+    int i;
+    printf("Array is: ");
+    for(i = 0; i < n; i++){
+        printf("%d ", arr[i]);
+    }
+    printf("\n");
+}
+
+void main(){
+    int val;
+    printf("Enter the number of elements in an array: ");
+    scanf("%d", &val);
+
+    int arr[val];
+    create_array(arr, val);
+    printf("BEFORE SORTING \n");
+    display_array(arr, val);
+    bubble_sort(arr, val);
+    printf("AFTER SORTING \n");
+    display_array(arr, val);
