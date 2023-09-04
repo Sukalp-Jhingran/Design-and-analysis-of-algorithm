@@ -1,5 +1,5 @@
 #include <stdio.h>
-
+#include <time.h>
 int linear_search(int arr[] , int n){
     
     int val,i;
@@ -18,7 +18,8 @@ int linear_search(int arr[] , int n){
 int main()
 {
     int n,i,val;
-    
+    double time=0.0;
+    clock_t begin = clock();
     printf("enter size of array : ");
     scanf("%d", &n);
     
@@ -36,6 +37,8 @@ int main()
     
     else
     printf("element found at position %d in array",search);
-    
+    clock_t end = clock();
+    time+= (double)(end - begin)
+    printf("Time elapsed =%f", time);
     return 0;
 }
