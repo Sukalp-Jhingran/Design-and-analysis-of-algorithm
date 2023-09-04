@@ -1,0 +1,34 @@
+#include <stdio.h>
+
+void searching_string(char sub[], char string[])
+{
+    int i, j;
+
+    while (string[i] != '\0') {
+        j = 0;
+        while (sub[j] == string[i + j] && sub[j] != '\0') {
+            j++;
+        }
+        if (sub[j] == '\0') {
+            printf("substring between indexes %d and %d\n", i, i + j);
+        }    
+        
+        i++;
+    }
+
+
+}
+
+int main() {
+    char sub[50], string[20];
+
+    printf("Enter the string: ");
+    scanf("%s", string);
+
+    printf("Enter the substring: ");
+    scanf("%s", sub);
+
+    searching_string(sub, string);
+
+    return 0;
+}
