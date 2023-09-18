@@ -1,0 +1,20 @@
+#include <stdio.h>
+void TOH(int n, char sour, char dest, char aux) {
+    if (n == 0) {
+        return;
+    }
+    TOH(n - 1, sour, aux, dest);
+    printf("Move disk %d from rod %c to rod %c\n", n, sour, dest);
+    TOH(n - 1, aux, dest, sour);
+}
+
+int main() {
+    int x;
+    printf("Enter the number of value: ");
+    scanf("%d", &x);
+
+    char sour = 'A', dest = 'C', aux = 'B';
+
+    TOH(x, sour, dest, aux);
+    return 0;
+}
