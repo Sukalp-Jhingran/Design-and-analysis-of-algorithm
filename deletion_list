@@ -1,0 +1,98 @@
+include <stdio.h>
+include <stdlib.h>
+
+struct node{
+    int data;
+    struct node *next;
+};
+
+void createlist(int n)
+
+{
+    struct node *newnode,*temp;
+    int data,i;
+    head=(struct node*)malloc(sizeof(struct node));
+    
+    if(head==NULL){
+        printf("unable to allocate memory.");
+        return;
+    }
+    printf("Enter the data of node 1\n");
+    scanf("%d",&data);
+    head->data=data;
+    head->next=NULL;
+    temp=head;
+    for(i=2 ; i<=n ; i++){
+        newnode=(struct node*)malloc(sizeof(struct node));
+        if(newnode == NULL)
+        {
+            printf("Unable to allocate memory.");
+            break;
+        }
+        printf("Enter the data of node %d: ", i);
+        scanf("%d", &data);
+        newnode->data = data; 
+        newnode->next = NULL;  
+        temp->next = newnode; 
+        temp = temp->next;
+        return head;    
+    }
+}
+
+void deleteafter(struct node **head_ref, int after)
+{
+    struct node *ptr , *temp:
+    if (*head_ref==NULL){
+        printd("No memoy is allocated");
+    }
+    ptr=NULL;
+    temp=*head_ref;
+    while (temp->data!=after){
+        temp=temp->next;
+    }
+    ptr=temp->next;
+    temp->next=ptr->next;
+}
+
+void reversing(struct node **head_ref){
+    struct node *temp , *next , *prev;
+    temp=*head_ref;
+    while(temp!=NULL){
+        next = temp->next;
+        temp->next=prev;
+        prev=temp;
+        temp=next;
+    }
+    head==prev;
+}
+
+void traverselist()
+{
+    struct node *temp; 
+    if(head == NULL)
+    {
+        printf("List is empty.");
+        return;
+    }
+    
+    temp = head;
+    while(temp != NULL)
+    {
+        printf("Data = %d\n", temp->data); 
+        temp = temp->next;                 
+    }
+}
+int main()
+{
+    int n;
+    printf("Enter the total number of nodes: ");
+    scanf("%d", &n);
+
+    createlist(n);
+    reversing()
+
+    printf("\nData in the list \n");
+    traverselist();
+
+    return 0;
+}
