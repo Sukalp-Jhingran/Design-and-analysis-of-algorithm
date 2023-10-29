@@ -1,0 +1,49 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#define MAX_SIZE 100
+
+char stack[MAX_SIZE];
+int top = -1;
+
+void push(char x) {
+    if (top == MAX_SIZE - 1) {
+        printf("Stack Overflow\n");
+        exit(1);
+    }
+    stack[++top] = x;
+}
+
+char pop() {
+    if (top == -1) {
+        printf("Stack Underflow\n");
+        exit(1);
+    }
+    return stack[top--];
+}
+
+void reverseString(char str[]) {
+    int i;
+    for (i = 0; str[i] != '\0'; i++) {
+        push(str[i]);
+    }
+
+    for (i = 0; i < strlen(str); i++) {
+        str[i] = pop();
+    }
+}
+
+int main() {
+    char str[MAX_SIZE];
+
+    printf("Enter a string: ");
+    fgets(str, MAX_SIZE, stdin);
+
+    reverseString(str);
+
+    printf("Reversed string: %s", str);
+
+    return 0;
+}
+
