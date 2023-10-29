@@ -1,0 +1,92 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+struct Node {
+    int data;
+    struct Node* next;
+};
+
+struct Node* mergeLists(struct Node* list1, struct Node* list2) {
+    struct Node* mergedList = NULL;
+
+    if (list1 == NULL) {
+        return list2;
+    }
+    else if (list2 == NULL) {
+        return list1;
+    }
+
+    if (list1->data <= list2->data) {
+        mergedList = list1;
+        mergedList->next = mergeLists(list1->next, list2);
+    }
+    else {
+        mergedList = list2;
+        mergedList->next = mergeLists(list1, list2->next);
+    }
+
+    return mergedList;
+}
+
+struct Node* mergeKLists(struct Node** lists, int k) {
+    int i;
+    struct Node* mergedList = NULL;
+
+    for (i = 0; i < k; i++) {
+        mergedList = mergeLists(mergedList, lists[i]);
+    }
+
+    return mergedList;
+}
+
+void printList(struct Node* node) {
+    while (node != NULL) {
+        printf("%d ", node->data);
+        node = node->next;
+    }
+}
+
+int main() {
+    int k, n, i, j, data;
+    struct Node** lists;
+
+    printf("Enter the number of linked lists: ");
+    scanf("%d", &k);
+
+    lists = (struct Node**)malloc(k * sizeof(struct Node*));
+
+    for (i = 0; i < k; i++) {
+        printf("Enter the number of elements in linked list %d: ", i + 1);
+        scanf("%d", &n);
+
+        struct Node* head = NULL;
+        struct Node* temp = NULL;
+
+        printf("Enter the elements in linked list %d in ascending order: ", i + 1);
+        for (j = 0; j < n; j++) {
+            scanf("%d", &data);
+            temp = (struct Node*)malloc(sizeof(struct Node));
+            temp->data = data;
+            temp->next = NULL;
+            if (head == NULL) {
+                head = temp;
+            }
+            else {
+                struct Node* curr = head;
+                while (curr->next != NULL) {
+                    curr = curr->next;
+                }
+                curr->next = temp;
+            }
+        }
+
+        lists[i] = head;
+    }
+
+    struct Node* mergedList = mergeKLists(lists, k);
+
+    printf("Merged List: ");
+    printList(mergedList);
+
+    return 0;
+}
