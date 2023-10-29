@@ -1,0 +1,65 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct Node {
+  int data;
+  struct Node *next;
+} Node;
+
+struct Search {
+  Node *head;
+  Node *tempo;
+};
+
+void addNode(struct Search *s, int data) {
+  Node *new1 = malloc(sizeof(Node));
+  new1->data = data;
+  new1->next = NULL;
+  if (s->head == NULL) {
+    s->head = new1;
+  } else {
+    s->tempo->next = new1;
+  }
+
+  s->tempo = new1;
+
+  // last node points to the first node
+  s->tempo->next = s->head;
+}
+
+void find(struct Search *s, int key) {
+  Node *temp = s->head;
+  int f = 0;
+  if (s->head == NULL) {
+    printf("List is empty\n");
+  } else {
+    do {
+      if (temp->data == key) {
+        printf("%d Found\n", key);
+        f = 1;
+        break;
+      }
+      temp = temp->next;
+    } while (temp != s->head);
+
+    if (f == 0) {
+      printf("%d Not Found\n", key);
+    }
+  }
+}
+
+int main() {
+  struct Search s;
+
+  // Adds data to the list
+  addNode(&s, 5);
+  addNode(&s, 4);
+  addNode(&s, 3);
+  addNode(&s, 2);
+  int key = 2;
+  find(&s, key);
+  key = 6;
+  find(&s, key);
+
+  return 0;
+}
