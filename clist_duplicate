@@ -1,0 +1,48 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <set.h>
+
+typedef struct Node {
+  int data;
+  struct Node *next;
+} Node;
+
+static int checkDuplicate(Node *head) {
+  if (head == NULL) {
+    return 0;
+  }
+  int cnt = 0;
+  set<int> s;
+  s.add(head->data);
+  Node *curr = head->next;
+  while (curr != head) {
+    if (s.contains(curr->data)) {
+      cnt++;
+    }
+    s.add(curr->data);
+    curr = curr->next;
+  }
+
+  return cnt;
+}
+
+int main() {
+
+  Node *head = malloc(sizeof(Node));
+  head->data = 5;
+  head->next = malloc(sizeof(Node));
+  head->next->data = 7;
+  head->next->next = malloc(sizeof(Node));
+  head->next->next->data = 5;
+  head->next->next->next = malloc(sizeof(Node));
+  head->next->next->next->data = 1;
+  head->next->next->next->next = malloc(sizeof(Node));
+  head->next->next->next->next->data = 4;
+  head->next->next->next->next->next = malloc(sizeof(Node));
+  head->next->next->next->next->next->data = 4;
+  head->next->next->next->next->next->next = head;
+
+  printf("%d\n", checkDuplicate(head));
+
+  return 0;
+}
