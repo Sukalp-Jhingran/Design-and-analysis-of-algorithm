@@ -1,0 +1,51 @@
+#include <stdio.h>
+#include <stdbool.h>
+
+typedef struct Node {
+    int data;
+    struct Node* next;
+} Node;
+
+void insert(Node** head_ref, int new_data) {
+    Node* new_node = (Node*)malloc(sizeof(Node));
+    new_node->data = new_data;
+    new_node->next = (*head_ref);
+    (*head_ref) = new_node;
+}
+
+bool hasCycle(Node* head) {
+    Node* slow = head;
+    Node* fast = head;
+
+    while (fast != NULL && fast->next != NULL) {
+        slow = slow->next;
+        fast = fast->next->next;
+
+        if (slow == fast) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+int main() {
+    Node* head = NULL;
+
+    insert(&head, 1);
+    insert(&head, 2);
+    insert(&head, 3);
+    insert(&head, 4);
+    insert(&head, 5);
+
+    // Create a cycle by pointing the last node to the second node
+    head->next->next->next->next->next = head->next;
+
+    if (hasCycle(head)) {
+        printf("The linked list has a cycle.\n");
+    } else {
+        printf("The linked list does not have a cycle.\n");
+    }
+
+    return 0;
+}
