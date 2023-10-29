@@ -1,0 +1,76 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct Node {
+  int data;
+  struct Node *next;
+} Node;
+
+Node *head = NULL;
+Node *last = NULL;
+
+void add(int data) {
+  Node *newNode = malloc(sizeof(Node));
+  newNode->data = data;
+  if (head == NULL) {
+    head = newNode;
+    last = newNode;
+    newNode->next = head;
+  } else {
+    last->next = newNode;
+    last = newNode;
+    last->next = head;
+  }
+}
+
+void Sort_List() {
+  Node *current = head;
+  Node *temp = NULL;
+  int value;
+
+  if (head == NULL) {
+    printf("Your list is empty\n");
+  } else {
+    while (current->next != head) {
+      temp = current->next;
+      while (temp != head) {
+        if (current->data > temp->data) {
+          value = current->data;
+          current->data = temp->data;
+          temp->data = value;
+        }
+        temp = temp->next;
+      }
+      current = current->next;
+    }
+  }
+}
+
+void Print_List() {
+  Node *current = head;
+  if (head == NULL) {
+    printf("Your list is empty\n");
+  } else {
+    do {
+      printf(" %d", current->data);
+      current = current->next;
+    } while (current != head);
+    printf("\n");
+  }
+}
+
+int main() {
+  add(10);
+  add(6);
+  add(3);
+  add(8);
+  add(4);
+
+  printf("Original List --> ");
+  Print_List();
+  Sort_List();
+  printf("List after Sorting--> ");
+  Print_List();
+
+  return 0;
+}
