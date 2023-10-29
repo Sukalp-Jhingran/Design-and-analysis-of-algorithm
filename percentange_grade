@@ -1,0 +1,168 @@
+#include<stdio.h>
+#include<stdlib.h>
+struct class{
+   char Name[50];
+   int Roll_no;
+   int SAP_ID;
+   int Batch;
+   float Physics;
+   float Chemistry;
+   float Maths;
+   float English;
+   float Biology;
+};
+
+int main()
+{
+  int n;
+  FILE *grade;
+  printf("No. of records to be entered\n");
+  scanf("%d",&n);
+  printf("Enter the information\n");
+  struct class student[n];
+  grade=fopen("grade.txt","w");
+  for(int i=0;i<n;i++)
+  {
+   printf("Enter details of student %d\n",i+1);
+   printf("Enter Name\n");
+   fflush(stdin);
+   gets(student[i].Name);
+   printf("Enter Roll No.\n");
+   scanf("%d",&student[i].Roll_no);
+   printf("Enter SAP ID\n");
+   scanf("%d",&student[i].SAP_ID);
+   printf("Enter Batch no.\n");
+   scanf("%d",&student[i].Batch);
+   printf("Enter marks in Physics\n");
+   scanf("%f",&student[i].Physics);
+   printf("Enter marks in Chemistry\n");
+   scanf("%f",&student[i].Chemistry);
+   printf("Enter marks in Maths\n");
+   scanf("%f",&student[i].Maths);
+   printf("Enter marks in English\n");
+   scanf("%f",&student[i].English);
+   printf("Enter marks in Biology\n");
+   scanf("%f",&student[i].Biology);
+  }
+   char g,g1,g2,g3,g4;
+   float marks,CGPA;
+   for(int j=0;j<n;j++)
+   {
+     marks=student[j].Physics+student[j].Chemistry+student[j].Maths+student[j].English+student[j].Biology;
+     CGPA=(marks/50);
+     if(student[j].Physics<35)
+     {
+      g='F';
+     }
+    else if(student[j].Physics>=35 && student[j].Physics<40)
+    {
+      g='C';
+    }
+    else if(student[j].Physics>=40 && student[j].Physics<60)
+    {
+      g='B';
+    }
+    else if(student[j].Physics>=60 && student[j].Physics<75)
+    {
+      g='A';
+    }
+    else
+    {
+      g='O';
+    }
+    if(student[j].Chemistry<35)
+     {
+      g1='F';
+     }
+    else if(student[j].Chemistry>=35 && student[j].Chemistry<40)
+    {
+      g1='C';
+    }
+    else if(student[j].Chemistry>=40 && student[j].Chemistry<60)
+    {
+      g1='B';
+    }
+    else if(student[j].Chemistry>=60 && student[j].Chemistry<75)
+    {
+      g1='A';
+    }
+    else
+    {
+      g1='O';
+    }
+    if(student[j].Maths<35)
+     {
+      g2='F';
+     }
+    else if(student[j].Maths>=35 && student[j].Maths<40)
+    {
+      g2='C';
+    }
+    else if(student[j].Maths>=40 && student[j].Maths<60)
+    {
+      g2='B';
+    }
+    else if(student[j].Maths>=60 && student[j].Maths<75)
+    {
+      g2='A';
+    }
+    else
+    {
+      g2='O';
+    }
+    if(student[j].English<35)
+     {
+      g3='F';
+     }
+    else if(student[j].English>=35 && student[j].English<40)
+    {
+      g3='C';
+    }
+    else if(student[j].English>=40 && student[j].English<60)
+    {
+      g3='B';
+    }
+    else if(student[j].English>=60 && student[j].English<75)
+    {
+      g3='A';
+    }
+    else
+    {
+      g3='O';
+    }
+    if(student[j].Biology<35)
+     {
+      g4='F';
+     }
+    else if(student[j].Biology>=35 && student[j].Biology<40)
+    {
+      g4='C';
+    }
+    else if(student[j].Biology>=40 && student[j].Biology<60)
+    {
+      g4='B';
+    }
+    else if(student[j].Biology>=60 && student[j].Biology<75)
+    {
+      g4='A';
+    }
+    else
+    {
+      g4='O';
+    }
+    fprintf(grade,"Name:%s\n",student[j].Name);
+    fprintf(grade,"Roll No.: %d\n",student[j].Roll_no);
+    fprintf(grade,"SAP ID: %d\n",student[j].SAP_ID);
+    fprintf(grade,"Batch: %d\n",student[j].Batch);
+    fprintf(grade,"Grade obtained:\n");
+    fprintf(grade,"Physics: %c\n",g);
+    fprintf(grade,"Chemistry: %c\n",g1);
+    fprintf(grade,"Maths: %c\n",g2);
+    fprintf(grade,"English: %c\n",g3);
+    fprintf(grade,"Biology: %c\n",g4);
+    fprintf(grade,"CGPA obtained: %.2f\n",CGPA);
+    fprintf(grade,"\n");
+    }
+  fclose(grade);
+   return 0;
+}
