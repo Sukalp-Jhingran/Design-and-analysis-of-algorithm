@@ -1,0 +1,79 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+struct Node {
+    int data;
+    struct Node* left;
+    struct Node* right;
+};
+
+struct Node* createNode(int data) {
+    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+    newNode->data = data;
+    newNode->left = NULL;
+    newNode->right = NULL;
+    return newNode;
+}
+
+struct Node* insertLeft(struct Node* root, int data) {
+    if (root == NULL) {
+        return createNode(data);
+    }
+    root->left = insertLeft(root->left, data);
+    return root;
+}
+
+struct Node* insertRight(struct Node* root, int data) {
+    if (root == NULL) {
+        return createNode(data);
+    }
+    root->right = insertRight(root->right, data);
+    return root;
+}
+
+void inOrderTraversal(struct Node* root) {
+    if (root != NULL) {
+        inOrderTraversal(root->left);
+        printf("%d ", root->data);
+        inOrderTraversal(root->right);
+    }
+}
+
+void preOrderTraversal(struct Node* root) {
+    if (root != NULL) {
+        printf("%d ", root->data);
+        preOrderTraversal(root->left);
+        preOrderTraversal(root->right);
+    }
+}
+
+void postOrderTraversal(struct Node* root) {
+    if (root != NULL) {
+        postOrderTraversal(root->left);
+        postOrderTraversal(root->right);
+        printf("%d ", root->data);
+    }
+}
+
+int main() {
+    struct Node* root = createNode(1);
+    insertLeft(root, 2);
+    insertRight(root, 3);
+    insertLeft(root->left, 4);
+    insertRight(root->left, 5);
+
+    printf("Inorder Traversal: ");
+    inOrderTraversal(root);
+    printf("\n");
+
+    printf("Preorder Traversal: ");
+    preOrderTraversal(root);
+    printf("\n");
+
+    printf("Postorder Traversal: ");
+    postOrderTraversal(root);
+    printf("\n");
+
+    return 0;
+}
+
