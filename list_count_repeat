@@ -1,0 +1,48 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <unordered_set.h>
+
+typedef struct Node {
+  int data;
+  struct Node *next;
+} Node;
+
+Node *insert(Node **head, int item) {
+  Node *temp = malloc(sizeof(Node));
+  if (temp == NULL) {
+    return NULL;
+  }
+
+  temp->data = item;
+  temp->next = *head;
+  *head = temp;
+  return temp;
+}
+
+int countNode(Node *head) {
+  int count = 0;
+  unordered_set<int> seen;
+
+  while (head != NULL) {
+    if (seen.count(head->data) > 0) {
+      count++;
+    }
+    seen.insert(head->data);
+    head = head->next;
+  }
+
+  return count;
+}
+
+int main() {
+  Node *head = NULL;
+  insert(&head, 5);
+  insert(&head, 7);
+  insert(&head, 5);
+  insert(&head, 1);
+  insert(&head, 7);
+
+  printf("The number of duplicate nodes is %d\n", countNode(head));
+
+  return 0;
+}
