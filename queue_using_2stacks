@@ -1,0 +1,81 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+#define MAXSIZE 100
+
+typedef struct stack {
+    int data[MAXSIZE];
+    int top;
+} Stack;
+
+void push(Stack* stack, int data) {
+    if (stack->top >= MAXSIZE - 1) {
+        printf("Stack overflow\n");
+        exit(1);
+    }
+
+    stack->data[++stack->top] = data;
+}
+
+int pop(Stack* stack) {
+    if (stack->top < 0) {
+        printf("Stack underflow\n");
+        exit(1);
+    }
+
+    return stack->data[stack->top--];
+}
+
+void enqueue(Stack* stack1, int data) {
+    push(stack1, data);
+}
+
+int dequeue(Stack* stack1, Stack* stack2) {
+    if (stack1->top == -1 && stack2->top == -1) {
+        printf("Queue is empty\n");
+        exit(1);
+    }
+
+    if (stack2->top == -1) {
+        while (stack1->top != -1) {
+            int data = pop(stack1);
+            push(stack2, data);
+        }
+    }
+
+    return pop(stack2);
+}
+
+void display(Stack* stack1, Stack* stack2) {
+    printf("Queue: ");
+
+    for (int i = stack2->top; i >= 0; i--) {
+        printf("%d ", stack2->data[i]);
+    }
+
+    for (int i = 0; i <= stack1->top; i++) {
+        printf("%d ", stack1->data[i]);
+    }
+
+    printf("\n");
+}
+
+int main() {
+    Stack stack1 = { {0}, -1 };
+    Stack stack2 = { {0}, -1 };
+
+    enqueue(&stack1, 10);
+    enqueue(&stack1, 20);
+    enqueue(&stack1, 30);
+
+    display(&stack1, &stack2);
+
+    printf("Dequeued: %d\n", dequeue(&stack1, &stack2));
+    printf("Dequeued: %d\n", dequeue(&stack1, &stack2));
+
+    display(&stack1, &stack2);
+
+    return 0;
+}
+
+
