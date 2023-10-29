@@ -1,0 +1,44 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct Node {
+  int data;
+  struct Node *next;
+} Node;
+
+Node *push(Node **head_ref, int new_data) {
+  Node *new_node = malloc(sizeof(Node));
+  if (new_node == NULL) {
+    return NULL;
+  }
+
+  new_node->data = new_data;
+  new_node->next = *head_ref;
+  *head_ref = new_node;
+  return new_node;
+}
+
+void sumOfNodes(Node *head, int *sum) {
+  if (head == NULL) {
+    return;
+  }
+
+  sumOfNodes(head->next, sum);
+  *sum += head->data;
+}
+
+int sumOfNodesUtil(Node *head) {
+  int sum = 0;
+  sumOfNodes(head, &sum);
+  return sum;
+}
+
+int main() {
+  Node *head = NULL;
+  push(&head, 7);
+  push(&head, 6);
+  push(&head, 8);
+  push(&head, 4);
+  push(&head, 1);printf("Sum of nodes = %d\n", sumOfNodesUtil(head));
+  return 0;
+}
